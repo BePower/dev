@@ -1,0 +1,44 @@
+{
+  "name": "@bepower/dev",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Configurations and tools for developers (VERY opinionated)",
+  "main": "index.js",
+  "scripts": {
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "test": "vitest run",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BePower/dev.git"
+  },
+  "keywords": [
+    "dev",
+    "config",
+    "lint",
+    "deploy",
+    "format",
+    "editor"
+  ],
+  "author": "BePower",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BePower/dev/issues"
+  },
+  "homepage": "https://github.com/BePower/dev#readme",
+  "devDependencies": {
+    "@biomejs/biome": "2.2.6",
+    "@types/node": "^24.7.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
+    "memfs": "^4.49.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "^14.0.0",
+    "commander": "^14.0.1"
+  }
+}
