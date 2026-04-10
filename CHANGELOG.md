@@ -4,6 +4,18 @@
 
 
 
+
+## [1.3.0] - 2026-04-10
+
+### 🐛 Bug Fixes
+
+- fix(configs): :wrench: sanitize commit messages before commitlint validation
+
+### 📚 Documentation
+
+- docs: :memo: document workflow skills, hooks, and steering in README
+- docs(kiro): :memo: document workflow skills in interaction steering
+
 ## [1.2.2] - 2026-04-10
 
 ### ✨ Features
