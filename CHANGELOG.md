@@ -3,6 +3,13 @@
 
 
 
+
+## [1.2.2] - 2026-04-10
+
+### ✨ Features
+
+- feat(kiro): :sparkles: add workflow skills, hooks, and spec templates
+
 ## [1.2.1] - 2026-04-03
 
 ### 🐛 Bug Fixes
