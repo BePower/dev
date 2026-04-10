@@ -103,6 +103,46 @@ These files are copied (not extended) to target projects:
 | `.npmpackagejsonlintrc.json` | package.json validation |
 | `.npmrc` | GitHub Packages registry for @bepower scope |
 
+## Kiro AI Templates
+
+Distributed via `dev init-kiro`, these configure the Kiro AI agent for BePower projects.
+
+### Workflow Skills
+
+Trigger these in chat to switch the agent's cognitive mode:
+
+| Trigger | Mode | Use when |
+|---------|------|----------|
+| `plan product` | Product Owner | Starting a feature, vague requirements |
+| `plan eng` | Tech Lead | Architecture, failure modes, test matrix |
+| `code review` | Paranoid Reviewer | After implementation, before committing |
+| `qa` | QA Lead | Verify changes, health score |
+| `ship prep` | Release Engineer | Build/lint/test checklist + commit message |
+| `retro` | Engineering Manager | Analyze what happened (git history) |
+| `new spec` | Spec Author | Create structured spec from template |
+
+Typical flow: `plan product` → `plan eng` → implement → `code review` → `qa` → `ship prep`
+
+### Hooks
+
+| Hook | Trigger | What it does |
+|------|---------|-------------|
+| `safety-gate` | `preToolUse` | Blocks git commit/push, npm publish, destructive ops |
+| `barrel-export` | `fileCreated` | Auto-updates barrel index.ts in monorepo packages |
+| `context-injection` | `fileEdited` | Loads relevant steering doc based on file type |
+| `post-task-summary` | `agentStop` | Summarizes changes + suggests commit message |
+
+### Steering Docs
+
+| Doc | Content |
+|-----|---------|
+| `code-style.md` | TypeScript conventions, naming, error handling |
+| `build-tooling.md` | tsdown, biome, lefthook, npm |
+| `testing.md` | Vitest, coverage, mocking |
+| `interaction.md` | Agent behavior, workflow skills, no git commit |
+| `commit-conventions.md` | Conventional commits + gitmoji |
+| `architecture.md` | CDK patterns, NestJS structure, observability (CDK/ECS projects) |
+
 ## Architecture
 
 ```
@@ -119,7 +159,9 @@ BePower/.github/
 │   └── utils/                   # Shared utilities (configs, paths, templates)
 ├── configs/                     # Golden config files (copied to target projects)
 ├── kiro/                        # Kiro AI templates (agent, prompt, steering, skills)
-│   └── steering/                # Single source of truth for steering docs
+│   ├── steering/                # Single source of truth for steering docs
+│   ├── skills/                  # Workflow skills (plan, review, qa, ship, specs)
+│   └── hooks/                   # Agent hooks (safety gate, barrel export, etc.)
 ├── workflows/                   # GitHub Actions templates (distributed by dev setup)
 │   ├── base/                    # CI, PR, security, dependabot
 │   ├── library/                 # npm publish
