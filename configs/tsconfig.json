@@ -4,6 +4,7 @@
     "declaration": true,
     "noEmit": true,
     "isolatedDeclarations": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
   }
 }

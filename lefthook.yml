@@ -8,15 +8,15 @@ pre-commit:
       priority: 1
     lockfile:
       glob: "package-lock.json"
-      run: npx lockfile-lint
+      run: npm run lint:lockfile
       priority: 1
     package-lint:
       glob: "package.json"
-      run: npx npmPkgJsonLint .
+      run: npm run lint:package
       priority: 1
     package-sort:
       glob: "package.json"
-      run: npx sort-package-json "package.json"
+      run: npm run lint:sort_package
       stage_fixed: true
       priority: 1
     build:
@@ -25,11 +25,11 @@ pre-commit:
       priority: 2
     typecheck:
       glob: "*.ts"
-      run: tsc --noEmit
+      run: npm run lint:typecheck
       priority: 3
     test:
       glob: "*.ts"
-      run: npx vitest run --reporter=dot
+      run: npm test
       priority: 3
 
 commit-msg:

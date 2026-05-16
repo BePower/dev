@@ -12,7 +12,7 @@ import { copyTemplate } from '../utils/templates.js';
 
 const execAsync = promisify(exec);
 
-const SINGLE_TEMPLATES = ['lib', 'cdk', 'nestjs'] as const;
+const SINGLE_TEMPLATES = ['lib', 'nestjs'] as const;
 
 export const bootstrap = new Command()
   .name('bootstrap')
@@ -41,6 +41,14 @@ export const bootstrap = new Command()
       options.template &&
       !SINGLE_TEMPLATES.includes(options.template as (typeof SINGLE_TEMPLATES)[number])
     ) {
+      if (options.template === 'cdk') {
+        console.error(
+          'CDK projects should be scaffolded with @bepower/bep-cdk-cli:\n\n' +
+            '  npx @bepower/bep-cdk-cli init\n\n' +
+            'It provides an interactive wizard with account selection, pipeline setup, and version sync.',
+        );
+        process.exit(1);
+      }
       console.error(`Invalid template: ${options.template}. Valid: ${SINGLE_TEMPLATES.join(', ')}`);
       process.exit(1);
     }
@@ -85,20 +93,18 @@ export const bootstrap = new Command()
       await writeFile(join(cwd, 'package.json'), `${JSON.stringify(merged, null, 2)}\n`);
     }
 
-    const isCdk = options.template === 'cdk';
     const isNestjs = options.template === 'nestjs';
-    const skipGoldenConfigs = isCdk || isNestjs;
 
-    // Copy golden configs (skip tsconfig/tsdown for cdk/nestjs — they have their own)
+    // Copy golden configs (skip tsconfig/tsdown for nestjs — it has its own)
     const configFiles = getConfigFiles({ workspace: isMonorepo });
     for (const file of configFiles) {
-      if (skipGoldenConfigs && ['tsconfig.json', 'tsdown.config.ts'].includes(file.dest)) continue;
+      if (isNestjs && ['tsconfig.json', 'tsdown.config.ts'].includes(file.dest)) continue;
       await copyConfig(file, cwd);
     }
 
     // Merge devDependencies and scripts
     const devDeps = { ...DEV_DEPENDENCIES };
-    if (isCdk || isNestjs) {
+    if (isNestjs) {
       delete devDeps.tsdown;
       delete devDeps['@tsconfig/node22'];
     }
@@ -120,7 +126,7 @@ export const bootstrap = new Command()
       '.env.*',
       '!.env.example',
     ];
-    if (isCdk || isNestjs) {
+    if (isNestjs) {
       gitignoreLines.push('cdk.out');
     }
     await writeFile(join(cwd, '.gitignore'), `${gitignoreLines.join('\n')}\n`);

@@ -7,7 +7,7 @@ import { fileExists } from '../utils/configs.js';
 import { paths } from '../utils/paths.js';
 import { copyTemplate } from '../utils/templates.js';
 
-const TEMPLATES = ['lib', 'cdk', 'nestjs'] as const;
+const TEMPLATES = ['lib', 'nestjs'] as const;
 
 export const add = new Command()
   .name('add')
@@ -15,6 +15,15 @@ export const add = new Command()
   .argument('<path>', 'Package path (e.g. packages/infra)')
   .requiredOption('-t, --template <template>', `Package template: ${TEMPLATES.join(', ')}`)
   .action(async (pkgPath, options) => {
+    if (options.template === 'cdk') {
+      console.error(
+        'CDK projects should be scaffolded with @bepower/bep-cdk-cli:\n\n' +
+          '  npx @bepower/bep-cdk-cli init\n\n' +
+          'It provides an interactive wizard with account selection, pipeline setup, and version sync.',
+      );
+      process.exit(1);
+    }
+
     if (!TEMPLATES.includes(options.template as (typeof TEMPLATES)[number])) {
       console.error(`Invalid template: ${options.template}. Valid: ${TEMPLATES.join(', ')}`);
       process.exit(1);

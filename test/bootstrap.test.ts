@@ -49,23 +49,20 @@ describe('bootstrap command', () => {
     expect(pkg.publishConfig).toEqual({ registry: 'https://npm.pkg.github.com' });
   });
 
-  it('should scaffold a cdk project without tsdown', async () => {
+  it('should redirect to bep-cdk-cli for cdk template', async () => {
     vi.spyOn(process, 'cwd').mockReturnValue(tempDir);
+    vi.spyOn(process, 'exit').mockImplementation(() => {
+      throw new Error('process.exit');
+    });
+    vi.spyOn(console, 'error').mockImplementation(() => {});
     vi.spyOn(console, 'log').mockImplementation(() => {});
 
     const { bootstrap } = await import('../cli/commands/bootstrap.js');
-    await bootstrap.parseAsync(['@bepower/my-cdk', '-t', 'cdk'], { from: 'user' });
+    await expect(
+      bootstrap.parseAsync(['@bepower/my-cdk', '-t', 'cdk'], { from: 'user' }),
+    ).rejects.toThrow('process.exit');
 
-    const pkg = JSON.parse(await readFile(join(tempDir, 'package.json'), 'utf-8'));
-    expect(pkg.devDependencies).not.toHaveProperty('tsdown');
-    expect(pkg.devDependencies).not.toHaveProperty('@tsconfig/node22');
-    expect(pkg.dependencies).toHaveProperty('aws-cdk-lib');
-
-    const gitignore = await readFile(join(tempDir, '.gitignore'), 'utf-8');
-    expect(gitignore).toContain('cdk.out');
-
-    expect(await fileExists(join(tempDir, 'bin/app.ts'))).toBe(true);
-    expect(await fileExists(join(tempDir, 'cdk.json'))).toBe(true);
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('@bepower/bep-cdk-cli'));
   });
 
   it('should scaffold a monorepo shell', async () => {

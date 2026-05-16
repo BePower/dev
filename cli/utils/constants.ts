@@ -1,21 +1,32 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { paths } from './paths.js';
+
+const pkg = JSON.parse(readFileSync(join(paths.root, 'package.json'), 'utf-8'));
+
+function dep(name: string): string {
+  return pkg.devDependencies[name] ?? pkg.dependencies?.[name] ?? '';
+}
+
 export const DEV_DEPENDENCIES: Record<string, string> = {
-  '@biomejs/biome': '^2.4.8',
-  '@commitlint/cli': '^20.5.0',
-  '@commitlint/config-conventional': '^20.5.0',
-  '@tsconfig/node22': '^22.0.5',
-  '@types/node': '^25.5.0',
-  '@vitest/coverage-v8': '^4.1.0',
-  bonvoy: '^0.13.1',
-  concurrently: '^9.2.1',
-  lefthook: '^2.1.4',
-  'lockfile-lint': '^5.0.0',
-  'ls-engines': '^0.10.0',
-  'npm-package-json-lint': '^9.1.0',
-  rimraf: '^6.1.3',
-  'sort-package-json': '^3.6.1',
-  tsdown: '^0.21.4',
-  typescript: '^5.9.3',
-  vitest: '^4.1.0',
+  '@biomejs/biome': dep('@biomejs/biome'),
+  '@commitlint/cli': dep('@commitlint/cli'),
+  '@commitlint/config-conventional': dep('@commitlint/config-conventional'),
+  '@tsconfig/node22': dep('@tsconfig/node22'),
+  '@types/node': dep('@types/node'),
+  '@vitest/coverage-v8': dep('@vitest/coverage-v8'),
+  bonvoy: dep('bonvoy'),
+  concurrently: dep('concurrently'),
+  lefthook: dep('lefthook'),
+  'lockfile-lint': dep('lockfile-lint'),
+  'ls-engines': dep('ls-engines'),
+  'npm-package-json-lint': dep('npm-package-json-lint'),
+  rimraf: dep('rimraf'),
+  'sort-package-json': dep('sort-package-json'),
+  tsdown: dep('tsdown'),
+  typescript: dep('typescript'),
+  vitest: dep('vitest'),
 };
 
 export const SCRIPTS: Record<string, string> = {
