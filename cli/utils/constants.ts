@@ -16,7 +16,6 @@ export const DEV_DEPENDENCIES: Record<string, string> = {
   '@tsconfig/node22': dep('@tsconfig/node22'),
   '@types/node': dep('@types/node'),
   '@vitest/coverage-v8': dep('@vitest/coverage-v8'),
-  bonvoy: dep('bonvoy'),
   concurrently: dep('concurrently'),
   lefthook: dep('lefthook'),
   'lockfile-lint': dep('lockfile-lint'),

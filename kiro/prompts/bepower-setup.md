@@ -59,7 +59,7 @@ Use the templates in your skills' `references/` folders. Adapt them to the speci
 - Linter: Biome
 - Hooks: Lefthook
 - Build: tsdown (libraries), tsc (CDK apps)
-- Releases: bonvoy
+- Releases: release-please
 - Tests: Vitest
 
 ## Rules

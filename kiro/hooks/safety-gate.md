@@ -10,7 +10,7 @@ toolName: shell
 Before executing any shell command, verify it does NOT:
 
 1. **Commit or push**: `git commit`, `git push`, `git tag`
-2. **Publish**: `npm publish`, `npx bonvoy shipit`
+2. **Publish**: `npm publish`
 3. **Destructive ops**: `rm -rf /`, `rm -rf ~`, `rm -rf .git`
 4. **Credential access**: `cat ~/.ssh`, `cat ~/.aws`, `printenv | grep SECRET`
 

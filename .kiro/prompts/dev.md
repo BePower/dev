@@ -43,7 +43,7 @@ BePower/.github/
 - **Lefthook** (not husky) for git hooks
 - **Biome** (not ESLint) for linting
 - **tsdown** (not tsc) for building
-- **bonvoy** for releases
+- **release-please** for releases
 - **Copy** (not extends) for config distribution
 - **npm** as package manager
 - **GitHub Packages** for @bepower scoped packages

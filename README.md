@@ -200,7 +200,7 @@ BePower/.github/
 | **Biome** | Linting & formatting | ESLint + Prettier |
 | **Lefthook** | Git hooks | Husky + lint-staged |
 | **tsdown** | Building | tsc / esbuild / rollup |
-| **bonvoy** | Releases | semantic-release / auto |
+| **release-please** | Releases | semantic-release / auto |
 | **Vitest** | Testing | Jest |
 | **commitlint** | Commit validation | — |
 | **npm** | Package manager | pnpm / yarn |

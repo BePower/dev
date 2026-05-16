@@ -32,7 +32,7 @@ __NAME__/
 - **Build**: tsdown
 - **Test**: Vitest
 - **Lint**: Biome
-- **Release**: bonvoy
+- **Release**: release-please
 
 ## Development Guidelines
 
