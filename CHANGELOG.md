@@ -5,6 +5,13 @@
 
 
 
+
+## [1.3.1] - 2026-05-16
+
+### ✨ Features
+
+- feat(kiro): :sparkles: add functional-analyst agent
+
 ## [1.3.0] - 2026-04-10
 
 ### 🐛 Bug Fixes
