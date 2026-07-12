@@ -15,12 +15,13 @@ Invoke with: `new spec`, `new feature spec`, or `new bugfix spec`
 
 1. Ask: feature or bugfix?
 2. Ask: short name (kebab-case, e.g. `user-notifications`)
-3. Create `.kiro/specs/📋_{name}/` with the appropriate template files
-4. Fill in what you know, mark unknowns with `<!-- TODO: -->`
+3. Ask: sequence number (next available, e.g. `08`)
+4. Create `.kiro/specs/📋_{number}-{name}/` with the appropriate template files
+5. Fill in what you know, mark unknowns with `<!-- TODO: -->`
 
 ## Feature Spec
 
-Create these files in `.kiro/specs/📋_{name}/`:
+Create these files in `.kiro/specs/📋_{number}-{name}/`:
 
 ### requirements.md
 Use the reference: `references/feature-requirements.md`
@@ -45,6 +46,17 @@ Rename the folder prefix as the spec progresses:
 - `🚧_` → In Progress (active development)
 - `⏸️_` → On Hold (blocked)
 - `✅_` → Complete (implemented and tested)
+
+## Naming Convention
+
+Folder format: `{emoji}_{number}-{name}`
+
+Examples:
+- `📋_08-scan-metadata`
+- `🚧_09-scan-aws`
+- `✅_01-project-setup`
+
+The number establishes implementation order. The emoji changes as the spec progresses.
 
 ## After Each Step
 
