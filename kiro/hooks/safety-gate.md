@@ -11,8 +11,9 @@ Before executing any shell command, verify it does NOT:
 
 1. **Commit or push**: `git commit`, `git push`, `git tag`
 2. **Publish**: `npm publish`
-3. **Destructive ops**: `rm -rf /`, `rm -rf ~`, `rm -rf .git`
-4. **Credential access**: `cat ~/.ssh`, `cat ~/.aws`, `printenv | grep SECRET`
+3. **Deploy infrastructure**: `cdk deploy`, `cdk destroy`
+4. **Destructive ops**: `rm -rf /`, `rm -rf ~`, `rm -rf .git`
+5. **Credential access**: `cat ~/.ssh`, `cat ~/.aws`, `printenv | grep SECRET`
 
 If the command matches any of these patterns:
 - **BLOCK** the command

@@ -1,5 +1,5 @@
 import { access, copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 
 import { paths } from './paths.js';
 
@@ -26,6 +26,7 @@ const BASE_CONFIG_FILES: ConfigFile[] = [
   { src: 'npmpackagejsonlintrc.json', dest: '.npmpackagejsonlintrc.json' },
   { src: 'tsconfig.json', dest: 'tsconfig.json' },
   { src: 'npmrc', dest: '.npmrc' },
+  { src: 'kiro-lsp.json', dest: '.kiro/settings/lsp.json' },
 ];
 
 export function getConfigFiles(options: { workspace?: boolean } = {}): ConfigFile[] {
@@ -47,6 +48,7 @@ export async function copyConfig(
 ): Promise<boolean> {
   const dest = join(targetDir, file.dest);
   if (!force && (await fileExists(dest))) return false;
+  await mkdir(dirname(dest), { recursive: true });
   await copyFile(join(paths.configs, file.src), dest);
   return true;
 }

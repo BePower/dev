@@ -30,13 +30,26 @@ git diff $DEFAULT...HEAD --stat
 git diff $DEFAULT...HEAD --name-only
 ```
 
-Classify changed files:
-- **Source**: `cli/**/*.ts`, `src/**/*.ts`
-- **Config**: `configs/*`, `biome.json`, `tsconfig.json`, `lefthook.yml`
-- **Templates**: `templates/**`, `kiro/**`, `workflows/**`
-- **Tests**: `test/**/*.test.ts`
-- **CDK stacks**: `*Stack.ts`, `*Stage.ts` (cross-stack dependencies!)
-- **NestJS**: `*.module.ts`, `*.service.ts`, `*.controller.ts`
+Classify changed files by category. Adapt to the project type:
+
+**General:**
+- **Source**: `src/**/*.ts`, `cli/**/*.ts`, `packages/*/src/**`
+- **Config**: `biome.json`, `tsconfig.json`, `lefthook.yml`, `vitest.config.ts`
+- **Tests**: `test/**/*.test.ts`, `**/*.spec.ts`
+
+**CDK projects:**
+- **CDK stacks**: `*Stack.ts`, `*Stage.ts` → check cross-stack dependencies!
+- **Lambda handlers**: `src/handlers/**` → check bundling, env vars, permissions
+
+**NestJS projects:**
+- **Modules**: `*.module.ts` → check imports, providers, exports
+- **Controllers**: `*.controller.ts`, `*-event-controller.ts`, `*-task-controller.ts`
+- **Entities**: `*.entity.ts` → check migrations needed
+
+**Monorepo frontend:**
+- **Schema**: `schema.graphql` → check codegen re-run
+- **Generated**: `**/generated/**` → NEVER edited manually
+- **Resolvers**: `resolvers/**` → check schema match
 
 ### 2. Verify Test Coverage
 
@@ -45,10 +58,10 @@ For each changed source file:
 - Do existing tests cover the changed code paths?
 - Are edge cases tested (empty input, invalid args, missing files)?
 
-For CDK changes specifically:
-- Are cross-stack references still valid?
-- Do `addDependency()` chains make sense?
-- Are new resources tagged (ABAC)?
+Extra checks per project type:
+- **CDK**: cross-stack references valid? `addDependency()` chains correct? ABAC tags?
+- **GraphQL**: types regenerated? resolvers match schema? frontends handle changes?
+- **NestJS**: module imports correct? dependency injection wired?
 
 ### 3. Run Checks
 
@@ -60,8 +73,8 @@ npm run lint
 ### 4. Check for Regressions
 
 - Files that import from changed modules
-- Shared utilities used across multiple commands
-- Template files that reference changed configs
+- Shared utilities used across packages
+- Cross-package dependencies in monorepos
 
 ## Output Format
 
@@ -105,4 +118,5 @@ npm run lint
 - Don't fix bugs — report them
 - Every finding needs evidence (file, line, error output)
 - Changed CDK stacks need extra scrutiny (cross-account, cross-stack refs)
+- Schema changes need codegen verification
 - After finishing, suggest `code review` if not done yet, or shipping if score >= 80

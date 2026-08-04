@@ -1,6 +1,6 @@
-import { copyFile, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -67,7 +67,9 @@ describe('diff command', () => {
     const { getConfigFiles } = await import('../cli/utils/configs.js');
     const configFiles = getConfigFiles();
     for (const file of configFiles) {
-      await copyFile(join(paths.configs, file.src), join(tempDir, file.dest));
+      const dest = join(tempDir, file.dest);
+      await mkdir(dirname(dest), { recursive: true });
+      await copyFile(join(paths.configs, file.src), dest);
     }
 
     const mockLog = vi.spyOn(console, 'log').mockImplementation(() => {});

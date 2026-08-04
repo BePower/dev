@@ -119,6 +119,7 @@ These files are copied (not extended) to target projects:
 | `.lockfile-lintrc.json` | Lockfile security |
 | `.npmpackagejsonlintrc.json` | package.json validation |
 | `.npmrc` | GitHub Packages registry for @bepower scope |
+| `.kiro/settings/lsp.json` | Kiro LSP configuration (TypeScript, Python, Go, Rust, Java) |
 
 ## Kiro AI Templates
 

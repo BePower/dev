@@ -1,6 +1,6 @@
 ---
 name: spec-templates
-description: "Create a new feature or bugfix spec from template. Produces requirements.md, design.md, tasks.md, and testlist.md."
+description: "Create a new feature or bugfix spec from template. Produces requirements.md, design.md, tasks.md, roadmap.md, and testlist.md."
 ---
 
 # Spec Templates
@@ -24,15 +24,23 @@ Invoke with: `new spec`, `new feature spec`, or `new bugfix spec`
 Create these files in `.kiro/specs/📋_{number}-{name}/`:
 
 ### requirements.md
+**What** we're building and **why**. User stories, acceptance criteria, risks.
 Use the reference: `references/feature-requirements.md`
 
 ### design.md
+**How** it works technically. Architecture, interfaces, data flow, failure modes.
 Use the reference: `references/feature-design.md`
 
 ### tasks.md
+**Phases** of work with effort estimates and progress tracking.
 Use the reference: `references/feature-tasks.md`
 
+### roadmap.md
+**Step-by-step navigation** for implementation. Each step is self-contained: what to do, which files to touch, what to test, done criteria. This is what the agent follows during coding.
+Use the reference: `references/feature-roadmap.md`
+
 ### testlist.md
+**Every test** mapped to user stories, with level and status tracking.
 Use the reference: `references/feature-testlist.md`
 
 ## Bugfix Spec
@@ -60,10 +68,11 @@ The number establishes implementation order. The emoji changes as the spec progr
 
 ## After Each Step
 
-When a task is completed:
+When a roadmap step or task is completed:
 
-1. **tasks.md**: check off the task (`- [x]`), update progress table
-2. **testlist.md**: check off tests that are now covered (`⬜` → `✅`)
-3. **design.md**: update if the implementation diverged from the design
+1. **roadmap.md**: mark the step `✅`
+2. **tasks.md**: check off the task (`- [x]`), update progress table
+3. **testlist.md**: check off tests that are now covered (`⬜` → `✅`)
+4. **design.md**: update if the implementation diverged from the design
 
 Include these doc updates in the same commit as the implementation.

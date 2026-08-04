@@ -18,7 +18,8 @@
     "web_fetch",
     "introspect",
     "thinking",
-    "code"
+    "code",
+    "@sonarqube"
   ],
   "allowedTools": [
     "read",
@@ -29,7 +30,8 @@
     "web_fetch",
     "introspect",
     "thinking",
-    "code"
+    "code",
+    "@sonarqube"
   ],
   "toolsSettings": {
     "write": {
@@ -55,6 +57,16 @@
     "shell": {
       "autoAllowReadonly": true,
       "deniedCommands": [".*git commit.*", ".*git push.*", ".*git tag .*", ".*npm publish.*"]
+    }
+  },
+  "mcpServers": {
+    "sonarqube": {
+      "url": "https://api.sonarcloud.io/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SONARQUBE_TOKEN}",
+        "SONARQUBE_ORG": "bepower",
+        "SONARQUBE_READ_ONLY": "true"
+      }
     }
   }
 }

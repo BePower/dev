@@ -33,6 +33,8 @@ Detect what to review:
 - [ ] Auth: do new endpoints have auth checks?
 - [ ] Secrets: any hardcoded keys/tokens?
 - [ ] Injection: SQL / XSS / command injection?
+- [ ] Lambda/DB queries: are ALL user values passed via parameters? (NEVER string interpolation)
+- [ ] IAM: are PolicyStatement `resources` scoped to specific ARNs? (NEVER `'*'` unless justified)
 
 ### Concurrency and Consistency
 - [ ] Race conditions: two simultaneous requests?
@@ -52,6 +54,13 @@ Detect what to review:
 ### Error Handling
 - [ ] External API failure degrades gracefully?
 - [ ] Error messages don't leak internals?
+
+### CDK / Infrastructure (if applicable)
+- [ ] Cross-stack references still valid?
+- [ ] `addDependency()` chains correct?
+- [ ] New resources tagged? (ABAC automatic if using base classes)
+- [ ] Secrets in SecretsManager, not environment variables?
+- [ ] `removalPolicy` set correctly? (RETAIN for prod data)
 
 ## Output Format
 
