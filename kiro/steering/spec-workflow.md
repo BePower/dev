@@ -13,7 +13,8 @@
 ├── design.md         ← HOW (architecture, interfaces, failure modes)
 ├── tasks.md          ← PHASES (grouped tasks, effort, progress table)
 ├── roadmap.md        ← NAVIGATION (step-by-step, files, tests, done criteria)
-└── testlist.md       ← COVERAGE (every test, mapped to stories, with status)
+├── testlist.md       ← COVERAGE (every test, mapped to stories, with status)
+└── open-points.md    ← UNKNOWNS (pending decisions, assumptions, questions)
 ```
 
 ## When You Complete a Step
@@ -26,6 +27,7 @@
 | `tasks.md` | Check off tasks (`- [x]`), update progress table |
 | `testlist.md` | Mark covered tests (`⬜` → `✅`), update summary counts |
 | `design.md` | Update ONLY if implementation diverged from the plan |
+| `open-points.md` | Move resolved questions to the Decisions Log |
 
 ## Lifecycle Prefixes
 

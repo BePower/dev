@@ -8,23 +8,37 @@ import { paths } from '../utils/paths.js';
 
 export const initKiro = new Command()
   .name('init-kiro')
-  .description('Install the bepower-setup agent globally for Kiro-powered project configuration')
+  .description('Install Kiro agents globally for AI-assisted project configuration')
   .action(async () => {
     const home = homedir();
     const kiroDir = join(home, '.kiro');
 
+    // Agents
     await mkdir(join(kiroDir, 'agents'), { recursive: true });
     await cp(
       join(paths.kiro, 'agents/bepower-setup.json'),
       join(kiroDir, 'agents/bepower-setup.json'),
     );
+    await cp(
+      join(paths.kiro, 'agents/functional-analyst.json'),
+      join(kiroDir, 'agents/functional-analyst.json'),
+    );
 
+    // Prompts
     await mkdir(join(kiroDir, 'prompts'), { recursive: true });
     await cp(
       join(paths.kiro, 'prompts/bepower-setup.md'),
       join(kiroDir, 'prompts/bepower-setup.md'),
     );
+    await cp(
+      join(paths.kiro, 'prompts/functional-analyst.md'),
+      join(kiroDir, 'prompts/functional-analyst.md'),
+    );
 
+    // Resources (functional-analyst templates)
+    await cp(join(paths.kiro, 'resources'), join(kiroDir, 'resources'), { recursive: true });
+
+    // Skills (bepower-dev workflow skills)
     const skillsDest = join(kiroDir, 'skills/bepower-dev');
     await cp(join(paths.kiro, 'skills'), skillsDest, { recursive: true });
 
@@ -33,16 +47,18 @@ export const initKiro = new Command()
       recursive: true,
     });
 
-    // Copy hooks (safety gate, barrel export, context injection, post-task summary)
+    // Hooks (safety gate, barrel export, context injection, post-task summary)
     await mkdir(join(kiroDir, 'hooks'), { recursive: true });
     await cp(join(paths.kiro, 'hooks'), join(kiroDir, 'hooks'), { recursive: true });
 
-    console.log('✓ bepower-setup agent installed globally');
-    console.log(`\n  Agent:  ${join(kiroDir, 'agents/bepower-setup.json')}`);
-    console.log(`  Prompt: ${join(kiroDir, 'prompts/bepower-setup.md')}`);
-    console.log(`  Skills: ${skillsDest}/`);
-    console.log(`  Hooks:  ${join(kiroDir, 'hooks/')}`);
-    console.log('\nTo configure a project:');
-    console.log('  1. Run: kiro-cli chat');
-    console.log('  2. Use: /agent swap bepower-setup');
+    console.log('✓ Kiro agents installed globally');
+    console.log(`\n  Agents:`);
+    console.log(`    ${join(kiroDir, 'agents/bepower-setup.json')}`);
+    console.log(`    ${join(kiroDir, 'agents/functional-analyst.json')}`);
+    console.log(`  Prompts: ${join(kiroDir, 'prompts/')}`);
+    console.log(`  Skills:  ${skillsDest}/`);
+    console.log(`  Hooks:   ${join(kiroDir, 'hooks/')}`);
+    console.log('\nAvailable agents:');
+    console.log('  • bepower-setup — Generate .kiro/ config for a project');
+    console.log('  • functional-analyst — Interactive requirements gathering (Italian)');
   });

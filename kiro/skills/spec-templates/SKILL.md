@@ -43,6 +43,10 @@ Use the reference: `references/feature-roadmap.md`
 **Every test** mapped to user stories, with level and status tracking.
 Use the reference: `references/feature-testlist.md`
 
+### open-points.md
+**Pending decisions and assumptions**. Questions for business, unresolved tradeoffs, anything that could change the plan. Resolved items move to a decisions log.
+Use the reference: `references/open-points.md`
+
 ## Bugfix Spec
 
 Create `.kiro/specs/📋_{name}/bugfix.md` using: `references/bugfix.md`
@@ -74,5 +78,6 @@ When a roadmap step or task is completed:
 2. **tasks.md**: check off the task (`- [x]`), update progress table
 3. **testlist.md**: check off tests that are now covered (`⬜` → `✅`)
 4. **design.md**: update if the implementation diverged from the design
+5. **open-points.md**: move resolved questions to the Decisions Log
 
 Include these doc updates in the same commit as the implementation.

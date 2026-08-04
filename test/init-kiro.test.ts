@@ -23,7 +23,7 @@ afterEach(async () => {
 });
 
 describe('init-kiro command', () => {
-  it('should copy agent, prompt, and skills to home .kiro directory', async () => {
+  it('should install all agents, prompts, skills, and hooks', async () => {
     const os = await import('node:os');
     vi.mocked(os.homedir).mockReturnValue(tempDir);
     vi.spyOn(console, 'log').mockImplementation(() => {});
@@ -32,8 +32,25 @@ describe('init-kiro command', () => {
     await initKiro.parseAsync([], { from: 'user' });
 
     const kiroDir = join(tempDir, '.kiro');
+
+    // Agents
     expect(await fileExists(join(kiroDir, 'agents/bepower-setup.json'))).toBe(true);
+    expect(await fileExists(join(kiroDir, 'agents/functional-analyst.json'))).toBe(true);
+
+    // Prompts
     expect(await fileExists(join(kiroDir, 'prompts/bepower-setup.md'))).toBe(true);
+    expect(await fileExists(join(kiroDir, 'prompts/functional-analyst.md'))).toBe(true);
+
+    // Resources
+    expect(await fileExists(join(kiroDir, 'resources/functional-analyst'))).toBe(true);
+
+    // Skills
     expect(await fileExists(join(kiroDir, 'skills/bepower-dev'))).toBe(true);
+
+    // Hooks
+    expect(await fileExists(join(kiroDir, 'hooks/safety-gate.md'))).toBe(true);
+    expect(await fileExists(join(kiroDir, 'hooks/context-injection.md'))).toBe(true);
+    expect(await fileExists(join(kiroDir, 'hooks/barrel-export.md'))).toBe(true);
+    expect(await fileExists(join(kiroDir, 'hooks/post-task-summary.md'))).toBe(true);
   });
 });
