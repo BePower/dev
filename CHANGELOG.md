@@ -6,6 +6,20 @@
 
 
 
+## [3.0.0](https://github.com/BePower/.github/compare/dev-2.0.0...dev-3.0.0) (2026-08-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cli:** `dev bootstrap` no longer runs `git init` and creates an initial commit. Initialize the repo manually after bootstrapping.
+
+### Features
+
+* **cli:** :sparkles: improve config management and add diff command ([07cec2d](https://github.com/BePower/.github/commit/07cec2da8cbf57a896e48c6b43a9b7670d4fe15f))
+* **kiro:** :sparkles: enhance templates from production project ([dd34f64](https://github.com/BePower/.github/commit/dd34f64492902cc4b900ac6ae285186ac2073690))
+* **kiro:** :sparkles: install functional-analyst globally and add ([89619ae](https://github.com/BePower/.github/commit/89619aec33d8fb25e74a5d004560f3b1ba236704))
+* **skills:** :sparkles: add testlist.md to spec-templates workflow ([9df3a2f](https://github.com/BePower/.github/commit/9df3a2fc6f581d38cdeef0590c006a8ab5150223))
+
 ## [2.0.0](https://github.com/BePower/.github/compare/dev-1.4.0...dev-2.0.0) (2026-05-16)
 
 
