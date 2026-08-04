@@ -32,20 +32,24 @@ Scaffold a new project with standard configuration.
 ```bash
 # Single projects (--template required)
 dev bootstrap @bepower/my-lib -t lib              # npm library
-dev bootstrap @bepower/my-infra -t cdk            # CDK application
 dev bootstrap @bepower/my-service -t nestjs        # NestJS ECS microservice
 
 # Monorepo (shell only, then use `dev add`)
 dev bootstrap @bepower/my-project --monorepo
 ```
 
+> **CDK projects** use [`@bepower/bep-cdk-cli`](https://github.com/BePower/bep-cdk-cli) which provides an interactive wizard with account selection, pipeline setup, and version sync:
+> ```bash
+> npx @bepower/bep-cdk-cli init
+> ```
+
 What it does:
 1. Copies the root template (single or monorepo shell)
-2. For single projects: overlays the package template (lib/cdk/nestjs)
+2. For single projects: overlays the package template (lib/nestjs)
 3. Applies golden configs (biome, tsconfig, vitest, lefthook, etc.)
 4. Merges devDependencies and scripts into `package.json`
 5. Copies base GitHub Actions workflows
-6. Runs `npm install` and creates initial git commit
+6. Runs `npm install`
 
 ### `dev add <path> --template <type>`
 
@@ -53,9 +57,10 @@ Add a package to a monorepo.
 
 ```bash
 dev add packages/shared -t lib                    # npm library package
-dev add packages/infra -t cdk                     # CDK infrastructure
 dev add packages/backend -t nestjs                # NestJS microservice
 ```
+
+> For CDK infrastructure packages, use `npx @bepower/bep-cdk-cli init` inside the monorepo.
 
 What it does:
 1. Copies the package template into the specified path
@@ -77,6 +82,18 @@ What it does:
 2. Copies config files (only if they don't already exist, unless `--force`)
 3. Merges devDependencies and scripts into `package.json`
 4. Adds base GitHub Actions workflows
+
+> **Note**: `engines` is only set if the project doesn't already have one. If your project has an older `engines` value (e.g., `>= 18`), update it manually.
+
+### `dev diff`
+
+Show differences between local configs and the golden versions distributed by `@bepower/dev`.
+
+```bash
+dev diff             # List configs that differ or are missing
+```
+
+Useful for detecting config drift without modifying anything. To apply updates, run `dev setup --force`.
 
 ### `dev init-kiro`
 
@@ -142,6 +159,15 @@ Typical flow: `plan product` → `plan eng` → implement → `code review` → 
 | `interaction.md` | Agent behavior, workflow skills, no git commit |
 | `commit-conventions.md` | Conventional commits + gitmoji |
 | `architecture.md` | CDK patterns, NestJS structure, observability (CDK/ECS projects) |
+
+### Global Agents
+
+These agents are distributed by `dev init-kiro` for use across all BePower projects:
+
+| Agent | Description |
+|-------|-------------|
+| `bepower-setup` | Analyzes a project and generates optimal `.kiro/` configuration (steering, agent, prompt, skills) |
+| `functional-analyst` | Interactive functional analysis — collects requirements through conversation, produces approval docs and technical briefs (Italian-first) |
 
 ## Architecture
 

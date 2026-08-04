@@ -90,5 +90,8 @@ export async function mergePackageJson(
     pkg.engines = overrides.engines;
   }
 
-  await writeFile(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
+  // Sort keys for consistent output (matches lint:sort_package behavior)
+  const { default: sortPackageJson } = await import('sort-package-json');
+  const sorted = sortPackageJson(pkg);
+  await writeFile(pkgPath, `${JSON.stringify(sorted, null, 2)}\n`);
 }

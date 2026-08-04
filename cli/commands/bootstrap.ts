@@ -134,9 +134,6 @@ export const bootstrap = new Command()
     console.log('Installing dependencies...');
     await execAsync('npm install');
 
-    console.log('Initializing git...');
-    await execAsync('git init && git add . && git commit -m "chore: initial commit"');
-
     const label = isMonorepo ? 'monorepo' : options.template;
     console.log(`\n✓ Project bootstrapped! (${label})`);
     if (isMonorepo) {

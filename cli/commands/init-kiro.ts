@@ -33,10 +33,15 @@ export const initKiro = new Command()
       recursive: true,
     });
 
+    // Copy hooks (safety gate, barrel export, context injection, post-task summary)
+    await mkdir(join(kiroDir, 'hooks'), { recursive: true });
+    await cp(join(paths.kiro, 'hooks'), join(kiroDir, 'hooks'), { recursive: true });
+
     console.log('✓ bepower-setup agent installed globally');
     console.log(`\n  Agent:  ${join(kiroDir, 'agents/bepower-setup.json')}`);
     console.log(`  Prompt: ${join(kiroDir, 'prompts/bepower-setup.md')}`);
     console.log(`  Skills: ${skillsDest}/`);
+    console.log(`  Hooks:  ${join(kiroDir, 'hooks/')}`);
     console.log('\nTo configure a project:');
     console.log('  1. Run: kiro-cli chat');
     console.log('  2. Use: /agent swap bepower-setup');
